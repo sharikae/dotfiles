@@ -12,8 +12,8 @@ See also the [Prezto](https://github.com/sorin-ionescu/prezto) project for more 
 
 ### Customizing ZSH with ~/.zsh.after/ and ~/.zsh.before/
 
-If you want to customize your zsh experience, yadr provides two hooks via `~/.zsh.after/` and `~/.zsh.before/` directories.
-In these directories, you can place files to customize things that load before and after other zsh customizations that come from `~/.yadr/zsh/*`
+If you want to customize your zsh experience, dotfiles provides two hooks via `~/.zsh.after/` and `~/.zsh.before/` directories.
+In these directories, you can place files to customize things that load before and after other zsh customizations that come from `~/.dotfiles/zsh/*`
 
 
 ### Overriding the theme

@@ -17,7 +17,7 @@ Please explore these people's work.
 
 ### Contributors
 
-Yadr is made possible by many awesome people, too many to list :) But here are a few of the bigger contributors and core committers.
+dotfiles is made possible by many awesome people, too many to list :) But here are a few of the bigger contributors and core committers.
 
  * Initial Version: @[skwp](https://github.com/skwp)
  * Cleanup, auto installer: @[kylewest](https://github.com/kylewest)

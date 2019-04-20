@@ -3,13 +3,13 @@ require File.join(File.dirname(__FILE__), 'default_libs')
 require File.join(File.dirname(__FILE__), 'vundle')
 
 GitStyleBinary.command do
-  version "yadr-delete-vim-plugin 1.0"
+  version "dotfiles-delete-vim-plugin 1.0"
 
   short_desc "Removes a vim plugin"
   opt :url, "Repository URL (see usage)", :required => true, :type => String
 
   banner <<-'EOS'
-      Usage: yadr-delete-vim-plugin --url [URL]
+      Usage: dotfiles-delete-vim-plugin --url [URL]
       Specify a plugin repository URL in one of the following forms:
         - Custom repository URL (full URL): git://git.wincent.com/command-t.git
         - Github repository (username/repo_name): robgleesson/hammer.vim.git

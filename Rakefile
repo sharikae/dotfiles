@@ -1,12 +1,12 @@
 require 'rake'
 require 'fileutils'
-require File.join(File.dirname(__FILE__), 'bin', 'yadr', 'vundle')
+require File.join(File.dirname(__FILE__), 'bin', 'dotfiles', 'vundle')
 
 desc "Hook our dotfiles into system-standard positions."
 task :install => [:submodule_init, :submodules] do
   puts
   puts "======================================================"
-  puts "Welcome to YADR Installation."
+  puts "Welcome to dotfiles Installation."
   puts "======================================================"
   puts
 
@@ -60,11 +60,11 @@ desc "Init and update submodules."
 task :submodules do
   unless ENV["SKIP_SUBMODULES"]
     puts "======================================================"
-    puts "Downloading YADR submodules...please wait"
+    puts "Downloading dotfiles submodules...please wait"
     puts "======================================================"
 
     run %{
-      cd $HOME/.yadr
+      cd $HOME/.dotfiles
       git submodule update --recursive
       git clean -df
     }
@@ -103,7 +103,7 @@ task :install_vundle do
   vundle_path = File.join('vim','bundle', 'vundle')
   unless File.exists?(vundle_path)
     run %{
-      cd $HOME/.yadr
+      cd $HOME/.dotfiles
       git clone https://github.com/gmarik/vundle.git #{vundle_path}
     }
   end
@@ -182,8 +182,8 @@ def install_fonts
   puts "======================================================"
   puts "Installing patched fonts for Powerline/Lightline."
   puts "======================================================"
-  run %{ cp -f $HOME/.yadr/fonts/* $HOME/Library/Fonts } if RUBY_PLATFORM.downcase.include?("darwin")
-  run %{ mkdir -p ~/.fonts && cp ~/.yadr/fonts/* ~/.fonts && fc-cache -vf ~/.fonts } if RUBY_PLATFORM.downcase.include?("linux")
+  run %{ cp -f $HOME/.dotfiles/fonts/* $HOME/Library/Fonts } if RUBY_PLATFORM.downcase.include?("darwin")
+  run %{ mkdir -p ~/.fonts && cp ~/.dotfiles/fonts/* ~/.fonts && fc-cache -vf ~/.fonts } if RUBY_PLATFORM.downcase.include?("linux")
   puts
 end
 
@@ -259,14 +259,14 @@ def install_prezto
   puts
   puts "Installing Prezto (ZSH Enhancements)..."
 
-  run %{ ln -nfs "$HOME/.yadr/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto" }
+  run %{ ln -nfs "$HOME/.dotfiles/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto" }
 
   # The prezto runcoms are only going to be installed if zprezto has never been installed
   install_files(Dir.glob('zsh/prezto/runcoms/z*'), :symlink)
 
   puts
-  puts "Overriding prezto ~/.zpreztorc with YADR's zpreztorc to enable additional modules..."
-  run %{ ln -nfs "$HOME/.yadr/zsh/prezto-override/zpreztorc" "${ZDOTDIR:-$HOME}/.zpreztorc" }
+  puts "Overriding prezto ~/.zpreztorc with dotfiles's zpreztorc to enable additional modules..."
+  run %{ ln -nfs "$HOME/.dotfiles/zsh/prezto-override/zpreztorc" "${ZDOTDIR:-$HOME}/.zpreztorc" }
 
   puts
   puts "Creating directories for your customizations"
@@ -321,9 +321,9 @@ def install_files(files, method = :symlink)
     end
 
     # Temporary solution until we find a way to allow customization
-    # This modifies zshrc to load all of yadr's zsh extensions.
-    # Eventually yadr's zsh extensions should be ported to prezto modules.
-    source_config_code = "for config_file ($HOME/.yadr/zsh/*.zsh) source $config_file"
+    # This modifies zshrc to load all of dotfiles's zsh extensions.
+    # Eventually dotfiles's zsh extensions should be ported to prezto modules.
+    source_config_code = "for config_file ($HOME/.dotfiles/zsh/*.zsh) source $config_file"
     if file == 'zshrc'
       File.open(target, 'a+') do |zshrc|
         if zshrc.readlines.grep(/#{Regexp.escape(source_config_code)}/).empty?
@@ -366,5 +366,5 @@ def success_msg(action)
   puts "   _____| / ___ ( (_| | |      "
   puts "  (_______\_____|\____|_|      "
   puts ""
-  puts "YADR has been #{action}. Please restart your terminal and vim."
+  puts "dotfiles has been #{action}. Please restart your terminal and vim."
 end

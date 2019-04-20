@@ -1,4 +1,4 @@
-if !exists("g:yadr_disable_solarized_enhancements")
+if !exists("g:dotfiles_disable_solarized_enhancements")
   hi! link txtBold Identifier
   hi! link zshVariableDef Identifier
   hi! link zshFunction Function

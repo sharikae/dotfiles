@@ -47,8 +47,8 @@ RUN \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install dotfiles
-COPY . /root/.yadr
-RUN cd /root/.yadr && rake install
+COPY . /root/.dotfiles
+RUN cd /root/.dotfiles && rake install
 
 # Run a zsh session
 CMD [ "/bin/zsh" ]

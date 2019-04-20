@@ -14,9 +14,9 @@
 
 **Always be sure to run `rake update` after pulling to ensure plugins are updated**
 
-## What is YADR?
+## What is dotfiles?
 
-**YADR is an opinionated dotfile repo that will make your heart sing**
+**dotfiles is an opinionated dotfile repo that will make your heart sing**
 
   * The best bits of all the top dotfile repos, vim and zsh plugins curated in one place, into a simple and cohesive way of working.
   * More than 90 vim plugins, all under one roof, working together, each plugin researched and configured to be at its best, often with better shortcut keys.
@@ -28,7 +28,7 @@
 
 ## Mailing List
 
-Got questions, concerns, want to hear announcements? Join the [Google Group](https://groups.google.com/forum/#!forum/yadr-users)
+Got questions, concerns, want to hear announcements? Join the [Google Group](https://groups.google.com/forum/#!forum/dotfiles-users)
 
 Please use GitHub Issues for pull requests or bug reports only.
 
@@ -44,7 +44,7 @@ To get started please run:
 sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"
 ```
 
-**Note:** YADR will automatically install all of its subcomponents. If you want to be asked
+**Note:** dotfiles will automatically install all of its subcomponents. If you want to be asked
 about each one, use:
 
 ```bash
@@ -54,7 +54,7 @@ sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/instal
 ## Wait, you're not done! Do this:
 
 #### Install iTerm Solarized Colors
-YADR will install Solarized colorschemes into your iTerm. Go to Profiles => Colors => Load Presets to pick Solarized Dark.
+dotfiles will install Solarized colorschemes into your iTerm. Go to Profiles => Colors => Load Presets to pick Solarized Dark.
 
 #### Remap caps-lock to escape with [Karabiner-Elements](https://pqrs.org/osx/karabiner/index.html)
 The escape key is the single most used key in vim.  Old keyboards used to have Escape where Tab is today. Apple keyboards are the worst with their tiny Esc keys. But all this is fixed by remapping Caps to Escape.  If you're hitting a small target in the corner, you are slowing yourself down considerably, and probably damaging your hands with repetitive strain injuries.
@@ -73,12 +73,12 @@ Same as iTerm. The native spaces navigation slows everything down for no reason.
 * Make sure you install Solarized colorscheme in your terminal!
 * If you don't want to use solarized terminal, then make sure you do this:
 
-      let g:yadr_using_unsolarized_terminal = 1
+      let g:dotfiles_using_unsolarized_terminal = 1
       # in ~/.vimrc.before
 
 * If you want to use an alternate colorcheme like Gruvbox, then in your `~/.vimrc.after` do:
 
-      let g:yadr_disable_solarized_enhancements = 1
+      let g:dotfiles_disable_solarized_enhancements = 1
       colorscheme base16-twilight
 
 ### Upgrading
@@ -86,14 +86,14 @@ Same as iTerm. The native spaces navigation slows everything down for no reason.
 Upgrading is easy.
 
 ```bash
-cd ~/.yadr
+cd ~/.dotfiles
 git pull --rebase
 rake update
 ```
 
 ## What's included, and how to customize?
 
-Read on to learn what YADR provides!
+Read on to learn what dotfiles provides!
 
 ### [Homebrew](https://brew.sh/)
 
@@ -112,7 +112,7 @@ We've also provided lots of enhancements:
 * `Ctrl-x,Ctrl-l` to insert output of last command
 * Fuzzy matching - if you mistype a directory name, tab completion will fix it
 * [fasd](https://github.com/clvv/fasd) integration - hit `z` and partial match for recently used directory. Tab completion enabled.
-* [Prezto - the power behind YADR's zsh](https://github.com/sorin-ionescu/prezto)
+* [Prezto - the power behind dotfiles's zsh](https://github.com/sorin-ionescu/prezto)
 * [How to add your own ZSH theme](doc/zsh/themes.md)
 
 ### Aliases
@@ -126,7 +126,7 @@ mnemonic aliases. Please feel free to edit them:
 
 ### Git Customizations:
 
-YADR will take over your `~/.gitconfig`, so if you want to store your usernames, please put them into `~/.gitconfig.user`
+dotfiles will take over your `~/.gitconfig`, so if you want to store your usernames, please put them into `~/.gitconfig.user`
 
 It is recommended to use this file to set your user info. Alternately, you can set the appropriate environment variables in your `~/.secrets`.
 
@@ -170,7 +170,7 @@ We include the `ghi` command. Try `ghi list` and have fun managing issues from c
  * [Utils - indents, paste buffer management, lots more](doc/vim/utils.md)
  * [General enhancements that don't add new commands](doc/vim/enhancements.md)
 
-A list of some of the most useful commands that YADR provides in vim are
+A list of some of the most useful commands that dotfiles provides in vim are
 included below. This is not a comprehensive list. To get deeper knowledge,
 practice a few of these every day, and then start looking into the lists
 of plugins above to learn more.
@@ -276,7 +276,7 @@ of plugins above to learn more.
  * `,vc` - (Vim Command) copies the command under your cursor and executes it in vim. Great for testing single line changes to vimrc.
  * `,vr` - (Vim Reload) source current file as a vim file
 
-## Extending and overriding YADR settings
+## Extending and overriding dotfiles settings
 
 * [Debugging vim keymappings](doc/vim/keymaps.md)
 * [Overriding vim settings with ~/.vimrc.after and friends](doc/vim/override.md)
@@ -336,4 +336,4 @@ rvm system do brew install vim --with-lua
 Pry offers a much better out of the box IRB experience with colors, tab completion, and lots of other tricks. You can also use it
 as an actual debugger by installing [pry-nav](https://github.com/nixme/pry-nav).
 
-[Learn more about YADR's pry customizations and how to install](doc/pry.md)
+[Learn more about dotfiles's pry customizations and how to install](doc/pry.md)
