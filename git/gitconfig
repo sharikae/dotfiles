@@ -129,7 +129,7 @@
   root = ~/src
 [user]
 	name = Shota Harikae
-	email = shota@sorahane.me
+	email = st.harikae@gmail.com
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
