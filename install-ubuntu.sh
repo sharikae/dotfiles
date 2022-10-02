@@ -7,9 +7,11 @@ if [ ! -d "$HOME/.dotfiles" ]; then
     [ "$1" = "ask" ] && export ASK="true"
 
     echo "Installing Ubuntu packages"
-    
+
     sudo apt update
-    
+
+    sudo add-apt-repository ppa:longsleep/golang-backports
+
     sudo apt-get -yqq install \
         autoconf \
         build-essential \
@@ -25,7 +27,8 @@ if [ ! -d "$HOME/.dotfiles" ]; then
         tmux \
         vim \
         wget \
-        zsh
+        zsh \
+        golang
 
     sudo apt-get clean
 
@@ -35,3 +38,4 @@ if [ ! -d "$HOME/.dotfiles" ]; then
 else
     echo "dotfiles is already installed"
 fi
+
