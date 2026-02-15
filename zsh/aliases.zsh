@@ -53,10 +53,12 @@ alias ar='source $dotfiles/zsh/aliases.zsh'  #alias reload
 alias gar="killall -HUP -u \"$USER\" zsh"  #global alias reload
 
 # vim using
-mvim --version > /dev/null 2>&1
-MACVIM_INSTALLED=$?
-if [ $MACVIM_INSTALLED -eq 0 ]; then
-  alias vim="mvim -v"
+if [[ $platform == 'darwin' ]]; then
+  mvim --version > /dev/null 2>&1
+  MACVIM_INSTALLED=$?
+  if [ $MACVIM_INSTALLED -eq 0 ]; then
+    alias vim="mvim -v"
+  fi
 fi
 
 # mimic vim functions
@@ -160,13 +162,15 @@ alias k9='kill -9'
 # Gem install
 alias sgi='sudo gem install --no-ri --no-rdoc'
 
-# TODOS
-# This uses NValt (NotationalVelocity alt fork) - http://brettterpstra.com/project/nvalt/
-# to find the note called 'todo'
-alias todo='open nvalt://find/todo'
+# TODOS (macOS only)
+if [[ $platform == 'darwin' ]]; then
+  alias todo='open nvalt://find/todo'
+fi
 
-# Forward port 80 to 3000
-alias portforward='sudo ipfw add 1000 forward 127.0.0.1,3000 ip from any to any 80 in'
+# Forward port 80 to 3000 (macOS only, using pf)
+if [[ $platform == 'darwin' ]]; then
+  alias portforward='echo "rdr pass inet proto tcp from any to any port 80 -> 127.0.0.1 port 3000" | sudo pfctl -ef -'
+fi
 
 alias rdm='rake db:migrate'
 alias rdmr='rake db:migrate:redo'
@@ -199,9 +203,11 @@ alias spb="git checkout -b \`sp | tail -2 | grep '#' | sed 's/^ //' | sed 's/[^A
 alias hpr='hub pull-request'
 alias grb='git recent-branches'
 
-# Finder
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+# Finder (macOS only)
+if [[ $platform == 'darwin' ]]; then
+  alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+  alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+fi
 
 alias dbtp='spring rake db:test:prepare'
 alias dbm='spring rake db:migrate'
@@ -209,5 +215,7 @@ alias dbmr='spring rake db:migrate:redo'
 alias dbmd='spring rake db:migrate:down'
 alias dbmu='spring rake db:migrate:up'
 
-# Homebrew
-alias brewu='brew update && brew upgrade && brew cleanup && brew doctor'
+# Homebrew (macOS only)
+if [[ $platform == 'darwin' ]]; then
+  alias brewu='brew update && brew upgrade && brew cleanup && brew doctor'
+fi

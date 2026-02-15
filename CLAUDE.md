@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-このリポジトリは **sharikae/dotfiles** — [skwp/dotfiles](https://github.com/skwp/dotfiles) をフォークした開発環境構成ファイル集。macOS と Ubuntu をサポート。
+このリポジトリは **sharikae/dotfiles** — [skwp/dotfiles](https://github.com/skwp/dotfiles) をフォークした開発環境構成ファイル集。macOS、Ubuntu、Debian をサポート。
 
 ## リポジトリ構造
 
@@ -22,7 +22,8 @@
 ├── vimrc         # Vim メイン設定ファイル
 ├── Rakefile      # インストール・アップデート用 Rake タスク
 ├── install.sh    # macOS 用インストーラ
-├── install-ubuntu.sh  # Ubuntu 用インストーラ
+├── install-linux.sh   # Ubuntu / Debian 用インストーラ
+├── install-ubuntu.sh  # Ubuntu 用インストーラ（レガシー）
 ├── Dockerfile    # Docker コンテナ定義
 └── docker-compose.yml
 ```
@@ -34,9 +35,9 @@
 sh -c "`curl -fsSL https://raw.githubusercontent.com/sharikae/dotfiles/master/install.sh`"
 ```
 
-**Ubuntu:**
+**Ubuntu / Debian:**
 ```sh
-bash install-ubuntu.sh
+bash install-linux.sh
 ```
 
 内部的に `rake install` が実行され、シンボリックリンクの作成・プラグインのインストール・フォントの配置等が行われる。
@@ -64,7 +65,7 @@ bash install-ubuntu.sh
 - プレフィックス: `Ctrl-a`
 - ペイン分割: `v`（垂直）/ `s`（水平）
 - vim-tmux-navigator によるシームレスなペイン移動（Ctrl-hjkl）
-- ステータスバー: 上部表示、Wi-Fi・バッテリー・日時情報
+- ステータスバー: 上部表示、日時情報
 - マウス操作有効
 
 ### Git
@@ -97,4 +98,4 @@ docker-compose up -d
 docker-compose exec dotfiles /bin/zsh
 ```
 
-Ubuntu 16.04 ベースのコンテナで全設定を試せる。
+Ubuntu 24.04 LTS ベースのコンテナで全設定を試せる。

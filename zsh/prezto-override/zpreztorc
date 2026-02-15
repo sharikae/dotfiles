@@ -33,9 +33,7 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'archive' \
-  'fasd' \
   'git' \
-  'osx' \
   'ruby' \
   'syntax-highlighting' \
   'history-substring-search' \
