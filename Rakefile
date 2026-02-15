@@ -142,23 +142,24 @@ def run_bundle_config
 end
 
 def install_rvm_binstubs
-  puts "======================================================"
-  puts "Installing RVM Bundler support. Never have to type"
-  puts "bundle exec again! Please use bundle --binstubs and RVM"
-  puts "will automatically use those bins after cd'ing into dir."
-  puts "======================================================"
-  run %{ chmod +x $rvm_path/hooks/after_cd_bundler }
-  puts
+  rvm_path = ENV['rvm_path']
+  if rvm_path && File.exists?("#{rvm_path}/hooks/after_cd_bundler")
+    puts "======================================================"
+    puts "Installing RVM Bundler support."
+    puts "======================================================"
+    run %{ chmod +x $rvm_path/hooks/after_cd_bundler }
+    puts
+  end
 end
 
 def install_homebrew
   run %{which brew}
   unless $?.success?
     puts "======================================================"
-    puts "Installing Homebrew, the OSX package manager...If it's"
+    puts "Installing Homebrew, the macOS package manager...If it's"
     puts "already installed, this will do nothing."
     puts "======================================================"
-    run %{ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"}
+    run %{/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"}
   end
 
   puts
@@ -172,8 +173,7 @@ def install_homebrew
   puts "======================================================"
   puts "Installing Homebrew packages...There may be some warnings."
   puts "======================================================"
-  run %{brew install zsh ctags git hub tmux reattach-to-user-namespace the_silver_searcher ghi}
-  run %{brew install macvim}
+  run %{brew install zsh ctags git gh tmux the_silver_searcher}
   puts
   puts
 end
@@ -182,8 +182,11 @@ def install_fonts
   puts "======================================================"
   puts "Installing patched fonts for Powerline/Lightline."
   puts "======================================================"
-  run %{ cp -f $HOME/.dotfiles/fonts/* $HOME/Library/Fonts } if RUBY_PLATFORM.downcase.include?("darwin")
-  run %{ mkdir -p ~/.fonts && cp ~/.dotfiles/fonts/* ~/.fonts && fc-cache -vf ~/.fonts } if RUBY_PLATFORM.downcase.include?("linux")
+  if RUBY_PLATFORM.downcase.include?("darwin")
+    run %{ cp -f $HOME/.dotfiles/fonts/* $HOME/Library/Fonts }
+  elsif RUBY_PLATFORM.downcase.include?("linux")
+    run %{ mkdir -p ~/.local/share/fonts && cp ~/.dotfiles/fonts/* ~/.local/share/fonts && fc-cache -vf ~/.local/share/fonts }
+  end
   puts
 end
 
@@ -278,14 +281,17 @@ def install_prezto
     puts "Zsh is already configured as your shell of choice. Restart your session to load the new settings"
   else
     puts "Setting zsh as your default shell"
-    if File.exists?("/usr/local/bin/zsh")
-      if File.readlines("/private/etc/shells").grep("/usr/local/bin/zsh").empty?
-        puts "Adding zsh to standard shell list"
-        run %{ echo "/usr/local/bin/zsh" | sudo tee -a /private/etc/shells }
+    # Detect zsh location: Homebrew on Apple Silicon, Homebrew on Intel, or system default
+    zsh_path = ["/opt/homebrew/bin/zsh", "/usr/local/bin/zsh", "/usr/bin/zsh", "/bin/zsh"].find { |p| File.exists?(p) }
+    if zsh_path
+      shells_file = RUBY_PLATFORM.downcase.include?("darwin") ? "/private/etc/shells" : "/etc/shells"
+      if File.exists?(shells_file) && File.readlines(shells_file).grep(/#{Regexp.escape(zsh_path)}/).empty?
+        puts "Adding #{zsh_path} to standard shell list"
+        run %{ echo "#{zsh_path}" | sudo tee -a #{shells_file} }
       end
-      run %{ chsh -s /usr/local/bin/zsh }
+      run %{ chsh -s #{zsh_path} }
     else
-      run %{ chsh -s /bin/zsh }
+      puts "Warning: zsh not found. Please install zsh and set it as your default shell."
     end
   end
 end

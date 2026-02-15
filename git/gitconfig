@@ -93,13 +93,12 @@
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
 [mergetool]
   prompt = false
-[mergetool "mvimdiff"]
-  cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
+[mergetool "vimdiff"]
   keepbackup=false
 [merge]
   summary = true
   verbosity = 1
-  tool = mvimdiff
+  tool = vimdiff
 [apply]
   whitespace = nowarn
 [branch]
@@ -111,7 +110,7 @@
 [core]
   autocrlf = false
   editor = vim
-	excludesfile = /Users/sharikae/.dotfiles/git/gitignore
+	excludesfile = ~/.dotfiles/git/gitignore
 [advice]
   statusHints = false
 [diff]
@@ -127,17 +126,8 @@
   path = .gitconfig.user
 [ghq]
   root = ~/src
-[user]
-	name = sharikae
-	email = st.harikae@gmail.com
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
