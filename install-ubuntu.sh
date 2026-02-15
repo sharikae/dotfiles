@@ -28,11 +28,17 @@ if [ ! -d "$HOME/.dotfiles" ]; then
         vim \
         wget \
         zsh \
-        golang
+        golang \
+        nodejs \
+        npm
 
     sudo apt-get clean
 
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+    sudo npm install n -g
+    sudo n stable
+    sudo npm install -g yarn
 
     rake install
 else
