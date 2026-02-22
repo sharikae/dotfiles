@@ -1,4 +1,4 @@
-export GOPATH=$HOME/.go
+export GOPATH=$HOME/go
 
 # Add Go binary paths if they exist
 _go_paths=(
