@@ -101,7 +101,7 @@ task :install_vundle do
   puts ""
 
   vundle_path = File.join('vim','bundle', 'vundle')
-  unless File.exists?(vundle_path)
+  unless File.exist?(vundle_path)
     run %{
       cd $HOME/.dotfiles
       git clone https://github.com/gmarik/vundle.git #{vundle_path}
@@ -143,7 +143,7 @@ end
 
 def install_rvm_binstubs
   rvm_path = ENV['rvm_path']
-  if rvm_path && File.exists?("#{rvm_path}/hooks/after_cd_bundler")
+  if rvm_path && File.exist?("#{rvm_path}/hooks/after_cd_bundler")
     puts "======================================================"
     puts "Installing RVM Bundler support."
     puts "======================================================"
@@ -200,7 +200,7 @@ def install_term_theme
   run %{ /usr/libexec/PlistBuddy -c "Merge 'iTerm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'" ~/Library/Preferences/com.googlecode.iterm2.plist }
 
   # If iTerm2 is not installed or has never run, we can't autoinstall the profile since the plist is not there
-  if !File.exists?(File.join(ENV['HOME'], '/Library/Preferences/com.googlecode.iterm2.plist'))
+  if !File.exist?(File.join(ENV['HOME'], '/Library/Preferences/com.googlecode.iterm2.plist'))
     puts "======================================================"
     puts "To make sure your profile is using the solarized theme"
     puts "Please check your settings under:"
@@ -282,10 +282,10 @@ def install_prezto
   else
     puts "Setting zsh as your default shell"
     # Detect zsh location: Homebrew on Apple Silicon, Homebrew on Intel, or system default
-    zsh_path = ["/opt/homebrew/bin/zsh", "/usr/local/bin/zsh", "/usr/bin/zsh", "/bin/zsh"].find { |p| File.exists?(p) }
+    zsh_path = ["/opt/homebrew/bin/zsh", "/usr/local/bin/zsh", "/usr/bin/zsh", "/bin/zsh"].find { |p| File.exist?(p) }
     if zsh_path
       shells_file = RUBY_PLATFORM.downcase.include?("darwin") ? "/private/etc/shells" : "/etc/shells"
-      if File.exists?(shells_file) && File.readlines(shells_file).grep(/#{Regexp.escape(zsh_path)}/).empty?
+      if File.exist?(shells_file) && File.readlines(shells_file).grep(/#{Regexp.escape(zsh_path)}/).empty?
         puts "Adding #{zsh_path} to standard shell list"
         run %{ echo "#{zsh_path}" | sudo tee -a #{shells_file} }
       end
@@ -315,7 +315,7 @@ def install_files(files, method = :symlink)
     puts "Source: #{source}"
     puts "Target: #{target}"
 
-    if File.exists?(target) && (!File.symlink?(target) || (File.symlink?(target) && File.readlink(target) != source))
+    if File.exist?(target) && (!File.symlink?(target) || (File.symlink?(target) && File.readlink(target) != source))
       puts "[Overwriting] #{target}...leaving original at #{target}.backup..."
       run %{ mv "$HOME/.#{file}" "$HOME/.#{file}.backup" }
     end
@@ -344,7 +344,7 @@ def install_files(files, method = :symlink)
 end
 
 def needs_migration_to_vundle?
-  File.exists? File.join('vim', 'bundle', 'tpope-vim-pathogen')
+  File.exist? File.join('vim', 'bundle', 'tpope-vim-pathogen')
 end
 
 
